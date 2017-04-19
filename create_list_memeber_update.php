@@ -45,13 +45,20 @@ $headers = array(
   'User-Agent' => 'testing/1.0',
   'Accept'     => 'application/json'
 );
-$body = ['json' => $data];
-$req_create_list = new Request('POST', 'lists', $headers, $body);
+
+// $data should match up the field, no json =>
+$req_create_list = new Request('POST', 'lists', $headers, json_encode($data));
 
 // promise
 $promise = $client
   ->sendAsync($req_create_list)
   ->then(function ($res) {
-    echo $res->getBody();
+    $obj = json_decode($res->getBody());
+    $list_id = $obj->id;
+    
+    print $list_id;
+
+    //$first_list_id = $obj->lists[0]->id;
+    //echo $first_list_id;
   });
 $promise->wait();
