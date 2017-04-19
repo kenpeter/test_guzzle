@@ -60,7 +60,8 @@ $headers = array(
 
 // ------------- create a list -------------------
 // $data should match up the field, no json =>
-$req_create_list = new Request('POST', 'lists', $headers, json_encode($data_list));
+$url_display_list = 'lists';
+$req_create_list = new Request('POST', $url_display_list, $headers, json_encode($data_list));
 
 // promise
 $promise_create_list = $client
@@ -68,25 +69,29 @@ $promise_create_list = $client
   ->then(function ($res) use ($headers, $data_member, $client) {
     $obj = json_decode($res->getBody());
     $list_id = $obj->id;
-    
-    
+
     // --------- add a member to list ---------
-    $url_create_member = 'lists/'. $list_id. '/members'; 
+    $url_create_member = 'lists/'. $list_id. '/members';
     $req_create_member = new Request('POST', $url_create_member, $headers, json_encode($data_member));
+    
     $promise_create_member = $client
       ->sendAsync($req_create_member)
-      ->then(function ($res) {
+      ->then(function ($res) use ($list_id) {
         $obj = json_decode($res->getBody());
-        
-        print_r($obj);
+        $member_id = $obj->id;
+
+        echo "\n--- list id ----\n";
+        echo "\n". $list_id. "\n";
+
+        echo "\n--- member id ----\n";
+        echo "\n". $member_id. "\n";
+
+
       });
 
     $promise_create_member->wait();
-        
+
   });
 
 
 $promise_create_list->wait();
-
-
-
