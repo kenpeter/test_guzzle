@@ -5,6 +5,7 @@ A simple php script (with Guzzle http and promise) to simulate:
 3. Update that member's status to 'unsubscribed'.
 
 ## Run
+git clone this project.
 php create_list_member_update.php
 It will output the list id, member id and print out the member obj, after it is updated.
 
