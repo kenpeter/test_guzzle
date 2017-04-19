@@ -92,13 +92,13 @@ $promise_create_list = $client
 
         // ------------ update a member ---------
         $url_update_member = 'lists/'. $list_id. '/members/'. $member_id;
-        $req_update_member = new Request('POST', $url_update_member, $headers, json_encode($data_member_new));
+        $req_update_member = new Request('PATCH', $url_update_member, $headers, json_encode($data_member_new));
 
         $promise_update_member = $client
           ->sendAsync($req_update_member)
           ->then(function ($res) {
             echo "\n--- member is updated ----\n";
-            print_r(res);
+            print_r( json_decode($res->getBody()) );
           });
         // wait
         $promise_update_member->wait();
