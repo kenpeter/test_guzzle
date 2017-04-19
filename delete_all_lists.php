@@ -30,12 +30,10 @@ $promise_get_all_list = $client
   ->sendAsync($req_list)
   ->then(function ($res) use ($headers, $client) {
     $obj = json_decode($res->getBody());
-    // print_r($obj->lists);
+    //print_r($obj->lists);
     foreach($obj->lists as $list) {
       $list_id = $list->id;
-      echo "\n". $list_id. "\n";
 
-      /*
       // ----------- delete a list -------------
       $url_delete_list = 'lists/'. $list_id;
       $req_delete_list = new Request('DELETE', $url_delete_list, $headers);
@@ -47,7 +45,6 @@ $promise_get_all_list = $client
         });
       // wait
       $promise_delete_list->wait();
-      */
     }
   });
 
