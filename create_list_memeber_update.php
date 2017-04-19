@@ -48,7 +48,11 @@ $data_member = array(
   "status" => "subscribed"
 );
 
-
+// updated member data
+$data_member_new = array(
+  'email_address' => 'member@member.com',
+  "status" => "unsubscribed"
+);
 
 // common
 $headers = array(
@@ -66,17 +70,17 @@ $req_create_list = new Request('POST', $url_display_list, $headers, json_encode(
 // promise
 $promise_create_list = $client
   ->sendAsync($req_create_list)
-  ->then(function ($res) use ($headers, $data_member, $client) {
+  ->then(function ($res) use ($headers, $client, $data_member, $data_member_new) {
     $obj = json_decode($res->getBody());
     $list_id = $obj->id;
 
     // --------- add a member to list ---------
     $url_create_member = 'lists/'. $list_id. '/members';
     $req_create_member = new Request('POST', $url_create_member, $headers, json_encode($data_member));
-    
+
     $promise_create_member = $client
       ->sendAsync($req_create_member)
-      ->then(function ($res) use ($list_id) {
+      ->then(function ($res) use ($headers, $client, $list_id, $data_member, $data_member_new) {
         $obj = json_decode($res->getBody());
         $member_id = $obj->id;
 
@@ -86,12 +90,23 @@ $promise_create_list = $client
         echo "\n--- member id ----\n";
         echo "\n". $member_id. "\n";
 
+        // ------------ update a member ---------
+        $url_update_member = 'lists/'. $list_id. '/members/'. $member_id;
+        $req_update_member = new Request('POST', $url_update_member, $headers, json_encode($data_member_new));
+
+        $promise_update_member = $client
+          ->sendAsync($req_update_member)
+          ->then(function ($res) {
+            echo "\n--- member is updated ----\n";
+            print_r(res);
+          });
+        // wait
+        $promise_update_member->wait();
 
       });
-
+    // wait
     $promise_create_member->wait();
-
   });
 
-
+// wait
 $promise_create_list->wait();
