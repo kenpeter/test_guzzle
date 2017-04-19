@@ -15,7 +15,7 @@ $option = array(
 $client = new \GuzzleHttp\Client($option);
 
 // data for a new list
-$data = array(
+$data_list = array(
   "name" => "test_mailchimp",
   "contact" => array(
     "company" => "MailChimp",
@@ -41,24 +41,52 @@ $data = array(
 	"visibility" => "pub",
 );
 
+
+// member data
+$data_member = array(
+  'email_address' => 'member@member.com',
+  "status" => "subscribed"
+);
+
+
+
+// common
 $headers = array(
   'User-Agent' => 'testing/1.0',
   'Accept'     => 'application/json'
 );
 
+
+
+// ------------- create a list -------------------
 // $data should match up the field, no json =>
-$req_create_list = new Request('POST', 'lists', $headers, json_encode($data));
+$req_create_list = new Request('POST', 'lists', $headers, json_encode($data_list));
 
 // promise
-$promise = $client
+$promise_create_list = $client
   ->sendAsync($req_create_list)
-  ->then(function ($res) {
+  ->then(function ($res) use ($headers, $data_member, $client) {
     $obj = json_decode($res->getBody());
     $list_id = $obj->id;
     
-    print $list_id;
+    
+    // --------- add a member to list ---------
+    $url_create_member = 'lists/'. $list_id. '/members'; 
+    $req_create_member = new Request('POST', $url_create_member, $headers, json_encode($data_member));
+    $promise_create_member = $client
+      ->sendAsync($req_create_member)
+      ->then(function ($res) {
+        $obj = json_decode($res->getBody());
+        
+        print_r($obj);
+      });
 
-    //$first_list_id = $obj->lists[0]->id;
-    //echo $first_list_id;
+    $promise_create_member->wait();
+        
   });
-$promise->wait();
+
+
+$promise_create_list->wait();
+
+
+
