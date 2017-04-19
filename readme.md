@@ -1,4 +1,6 @@
 ## Intro
+NOTE: this is the actual project/scripts to deal with the tasks.
+
 A simple php script (with Guzzle http and promise) to simulate:
 1. Create a mailchimp list.
 2. Add a new member to this list.
