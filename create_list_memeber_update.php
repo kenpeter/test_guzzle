@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\Request;
 // opt
 $option = array(
   'base_uri' => "https://us12.api.mailchimp.com/3.0/",
-  'auth' => ['apikey', '292bae37c631ac3ba03ed0640b44e6c3'],
+  'auth' => ['apikey', 'a8bea4b3f923e0feb0596cae68163ea6'], // // old key disabled
 );
 
 // client
