@@ -16,3 +16,7 @@ Clean all existing list
 
 ## /test directory
 I play around some code there.
+
+## Bonus
+https://github.com/kenpeter/test_async_await
+This repository is doing the same thing. It uses node 7, async, await.It is so much easier doing this way.
