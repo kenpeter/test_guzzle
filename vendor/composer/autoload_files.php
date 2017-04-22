@@ -9,4 +9,9 @@ return array(
     'c964ee0ededf28c96ebd9db5099ef910' => $vendorDir . '/guzzlehttp/promises/src/functions_include.php',
     'a0edc8309cc5e1d60e3047b5df6b7052' => $vendorDir . '/guzzlehttp/psr7/src/functions_include.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
+    '0a84ffde072c0fd5a02d297a04e39361' => $vendorDir . '/icicleio/icicle/src/functions.php',
+    '4fa86b38ff51274ef8ecf07dcf2827a8' => $vendorDir . '/icicleio/icicle/src/Awaitable/functions.php',
+    '3b4f82ea09d33cf29702a63fafc5b965' => $vendorDir . '/icicleio/icicle/src/Coroutine/functions.php',
+    '50f6ffd92d7bd412457cbaebb6c9e811' => $vendorDir . '/icicleio/icicle/src/Loop/functions.php',
+    '37e96582ad75bfb1e912d57ab3729f5e' => $vendorDir . '/icicleio/icicle/src/Observable/functions.php',
 );
