@@ -9,8 +9,7 @@ use GuzzleHttp\Promise\Promise;
 // opt
 $option = array(
   'base_uri' => "https://us12.api.mailchimp.com/3.0/",
-  //'auth' => ['apikey', '292bae37c631ac3ba03ed0640b44e6c3'], // api key disabled, because it is public
-  'auth' => ['apikey', 'a8bea4b3f923e0feb0596cae68163ea6'],
+  'auth' => ['apikey', '292bae37c631ac3ba03ed0640b44e6c3'],
 );
 
 // client
